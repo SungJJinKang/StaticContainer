@@ -44,7 +44,7 @@ namespace doom
 		static inline std::vector<T*> mElements{};
 
 		/// <summary>
-		/// why don't use iterator
+		/// why don't use iterator.
 		/// iterator can be invalidated when vector's size is over capacity
 		/// </summary>
 		size_t mComponentStaticIndex;
@@ -90,7 +90,10 @@ namespace doom
 
 	public:
 
-		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		[[nodiscard]] static constexpr std::pair<T**, size_t> GetAllStaticComponents()
 		{
 			return std::make_pair(this_type::mElements.data(), this_type::mElements.size());
