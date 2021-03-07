@@ -51,7 +51,7 @@ namespace doom
 
 		constexpr void AddToStaticContainer()
 		{
-			this_type::mElements.push_back(reinterpret_cast<T*>(this));
+			this_type::mElements.push_back(static_cast<T*>(this));
 			this->mComponentStaticIndex = this_type::mElements.size() - 1;
 		}
 
@@ -61,7 +61,8 @@ namespace doom
 			if (swapedElementIter != this_type::mElements.end())
 			{
 				//TODO : Need Test
-				static_cast<this_type*>((*swapedElementIter))->mComponentStaticIndex = this->mComponentStaticIndex;
+				T* element = *swapedElementIter;
+				static_cast<this_type*>((element))->mComponentStaticIndex = this->mComponentStaticIndex;
 			}
 		}
 
@@ -94,9 +95,9 @@ namespace doom
 		/// 
 		/// </summary>
 		/// <returns></returns>
-		[[nodiscard]] static constexpr std::pair<T**, size_t> GetAllStaticComponents()
+		[[nodiscard]] static constexpr std::vector<T*> GetAllStaticComponents()
 		{
-			return std::make_pair(this_type::mElements.data(), this_type::mElements.size());
+			return this_type::mElements;
 		}
 
 		[[nodiscard]] static constexpr T* GetComponentWithIndex(unsigned int index)
